@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Boris Epshtein | Python Lessons</title>
+    <style>
+        :root {
+            --primary: #306998; /* Python blue */
+            --secondary: #FFD43B; /* Python yellow */
+            --dark: #1a1a1a;
+            --light: #f8f9fa;
+            --gradient: linear-gradient(135deg, var(--primary), #164B77);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background-color: var(--light);
+            color: var(--dark);
+            line-height: 1.6;
+        }
+        
+        header {
+            background: var(--gradient);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .hero {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 1rem;
+            animation: fadeIn 1s ease-in;
+        }
+
+        img{
+            object-position: 0px 1px;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+        }
+        
+        .hero p {
+            font-size: 1.2rem;
+            max-width: 700px;
+        }
+        
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .logo span {
+            color: var(--secondary);
+        }
+        
+        .main {
+            padding: 4rem 0;
+        }
+        
+        .section {
+            margin-bottom: 4rem;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        .section h2 {
+            color: var(--primary);
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--secondary);
+        }
+        
+        .profile-pic {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--secondary);
+            margin-bottom: 1rem;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+        }
+        
+        .credentials {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1.5rem;
+            margin-top: 1.5rem;
+        }
+        
+        .credential-item {
+            flex: 1 1 300px;
+            padding: 1rem;
+            background: rgba(48, 105, 152, 0.05);
+            border-left: 3px solid var(--primary);
+            border-radius: 4px;
+        }
+        
+        .credential-item h3 {
+            color: var(--primary);
+            margin-bottom: 0.5rem;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            background: var(--primary);
+            color: white;
+            padding: 1rem 2rem;
+            text-decoration: none;
+            border-radius: 4px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+            text-align: center;
+            margin-top: 1rem;
+        }
+        
+        .cta-button:hover {
+            background: #164B77;
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(48, 105, 152, 0.3);
+        }
+        
+        .services {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        
+        .service-card {
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 3px 10px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease;
+        }
+        
+        .service-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .service-header {
+            background: var(--gradient);
+            color: white;
+            padding: 1.5rem;
+            text-align: center;
+        }
+        
+        .service-body {
+            padding: 1.5rem;
+        }
+        
+        .service-body ul {
+            list-style-type: none;
+            margin: 1rem 0;
+        }
+        
+        .service-body ul li {
+            margin-bottom: 0.5rem;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+        
+        .service-body ul li::before {
+            content: "✓";
+            color: var(--primary);
+            position: absolute;
+            left: 0;
+        }
+        
+        .price {
+            font-size: 1.8rem;
+            font-weight: bold;
+            text-align: center;
+            margin: 1.5rem 0;
+            color: var(--primary);
+        }
+        
+        .testimonials {
+            margin-top: 2rem;
+        }
+        
+        .testimonial {
+            padding: 1.5rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            margin-bottom: 1.5rem;
+            position: relative;
+        }
+        
+        .testimonial::before {
+            content: """;
+            font-size: 4rem;
+            position: absolute;
+            top: -10px;
+            left: 10px;
+            color: rgba(48, 105, 152, 0.1);
+        }
+        
+        .testimonial-content {
+            padding-left: 1rem;
+            font-style: italic;
+        }
+        
+        .testimonial-author {
+            margin-top: 1rem;
+            font-weight: bold;
+            text-align: right;
+            color: var(--primary);
+        }
+        
+        .contact-form {
+            display: grid;
+            gap: 1rem;
+            max-width: 600px;
+            margin: 2rem auto;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: var(--primary);
+        }
+        
+        .form-control {
+            padding: 0.8rem;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 2px rgba(48, 105, 152, 0.2);
+        }
+        
+        textarea.form-control {
+            min-height: 150px;
+            resize: vertical;
+        }
+        
+        .footer {
+            background: var(--dark);
+            color: white;
+            padding: 2rem 0;
+            text-align: center;
+        }
+        
+        .social-links {
+            margin-top: 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+        }
+        
+        .social-link {
+            color: white;
+            font-size: 1.5rem;
+            transition: transform 0.3s ease;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-3px);
+        }
+        
+        .code-snippet {
+            background-color: #f6f8fa;
+            border-radius: 6px;
+            padding: 1rem;
+            margin: 1rem 0;
+            font-family: monospace;
+            overflow-x: auto;
+            position: relative;
+            box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .code-header {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            margin-bottom: 0.5rem;
+            color: #666;
+        }
+        
+        .language-badge {
+            background-color: var(--primary);
+            color: white;
+            font-size: 0.7rem;
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            text-transform: uppercase;
+        }
+        
+        @media (max-width: 768px) {
+            .hero h1 {
+                font-size: 2rem;
+            }
+            
+            .hero p {
+                font-size: 1rem;
+            }
+            
+            .section {
+                padding: 1.5rem;
+            }
+        }
+        
+        .about-content {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 2rem;
+            align-items: center;
+        }
+        
+        .about-text {
+            flex: 1 1 60%;
+            min-width: 300px;
+        }
+        
+        .about-image {
+            flex: 0 1 30%;
+            min-width: 220px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+        }
+        
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            text-align: center;
+        }
+    </style>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Email obfuscation for anti-spam
+            const contactForm = document.getElementById('contactForm');
+            
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const nameField = document.getElementById('name');
+                const emailField = document.getElementById('email');
+                const experienceField = document.getElementById('experience');
+                const goalsField = document.getElementById('goals');
+                
+                // Email parts to prevent scraping
+                const emailParts = ['boris', '.', 'epshtein', '@', 'gmail', '.', 'com'];
+                let emailAddress = emailParts.join('');
+                
+                // Construct the mailto link with form data
+                let mailtoLink = 'mailto:' + emailAddress + '?subject=Python Lesson Inquiry from ' + 
+                                encodeURIComponent(nameField.value) +
+                                '&body=' + encodeURIComponent(
+                                    'Name: ' + nameField.value + '\n' +
+                                    'Email: ' + emailField.value + '\n' +
+                                    'Experience Level: ' + experienceField.value + '\n\n' +
+                                    'Learning Goals:\n' + goalsField.value
+                                );
+                                
+                // Display success message
+                const successMessage = document.getElementById('successMessage');
+                successMessage.style.display = 'block';
+                
+                // Open email client
+                window.location.href = mailtoLink;
+            });
+        });
+    </script>
+</head>
+<body>
+    <header>
+        <div class="container">
+            <div class="hero">
+                <div class="logo">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" viewBox="0 0 32 32">
+                        <path fill="#FFD43B" d="M16 0c-8.284 0-15 6.656-15 14.866 0 8.211 6.716 14.867 15 14.867 8.284 0 15-6.656 15-14.867 0-8.21-6.716-14.866-15-14.866zm0 27.635c-1.794 0-3.25-1.464-3.25-3.269s1.456-3.269 3.25-3.269 3.25 1.464 3.25 3.269-1.456 3.269-3.25 3.269zm3.75-14.866c0 2.025-1.679 3.731-3.75 3.731s-3.75-1.706-3.75-3.731v-8.211c0-2.025 1.679-3.731 3.75-3.731s3.75 1.706 3.75 3.731v8.211z"/>
+                    </svg>
+                    <div>Python Mastery <span>with Boris</span></div>
+                </div>
+                <h1>Learn Python from an Industry Veteran</h1>
+                <p>Transform your programming skills with personalized lessons from Boris Epshtein, Ph.D. — 30+ years of software engineering experience at leading tech companies.</p>
+                <a href="#contact" class="cta-button">Book Your First Lesson</a>
+            </div>
+        </div>
+    </header>
+    
+    <main class="main">
+        <div class="container">
+            <section id="about" class="section">
+                <h2>About Me</h2>
+                <div class="about-content">
+                    <div class="about-text">
+                        <p>Hello! I'm Dr. Boris Epshtein, a software engineering veteran with over three decades of industry experience. I'm passionate about teaching Python and helping students of all levels master this versatile programming language.</p>
+                        
+                        <div class="credentials">
+                            <div class="credential-item">
+                                <h3>Academic Background</h3>
+                                <p>Ph.D. in Computer Science from the prestigious Weizmann Institute of Science in Israel, where I specialized in algorithms and computational theory.</p>
+                            </div>
+                            
+                            <div class="credential-item">
+                                <h3>Industry Experience</h3>
+                                <p>30+ years working at leading tech companies including Microsoft, Google, Amazon, and Zillow, where I've developed robust, scalable software solutions.</p>
+                            </div>
+                            
+                            <div class="credential-item">
+                                <h3>Teaching Philosophy</h3>
+                                <p>I believe in teaching practical, industry-relevant skills while building a strong foundation in computer science principles. My approach combines theory with hands-on projects.</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="about-image">
+                        <img src="portrait.jpg" alt="Boris Epshtein" class="profile-pic">
+                        <p><strong>Dr. Boris Epshtein</strong><br>Python Expert & Educator</p>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="services" class="section">
+                <h2>Python Lessons</h2>
+                <p>Whether you're a complete beginner or an experienced developer looking to level up your Python skills, I offer personalized lessons tailored to your goals and learning pace.</p>
+                
+                <div class="services">
+                    <div class="service-card">
+                        <div class="service-header">
+                            <h3>Python Fundamentals</h3>
+                        </div>
+                        <div class="service-body">
+                            <p>Perfect for beginners who want to build a solid foundation in Python programming.</p>
+                            <ul>
+                                <li>Python syntax and data types</li>
+                                <li>Control structures and functions</li>
+                                <li>File handling and basic modules</li>
+                                <li>Object-oriented programming basics</li>
+                            </ul>
+                            <div class="price">$45 / hour</div>
+                            <a href="#contact" class="cta-button" style="width: 100%;">Get Started</a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <h3>Advanced Python</h3>
+                        </div>
+                        <div class="service-body">
+                            <p>Take your Python skills to the next level with advanced concepts and industry best practices.</p>
+                            <ul>
+                                <li>Advanced data structures</li>
+                                <li>Decorators, generators, and context managers</li>
+                                <li>Concurrency and multithreading</li>
+                                <li>Performance optimization</li>
+                            </ul>
+                            <div class="price">$55 / hour</div>
+                            <a href="#contact" class="cta-button" style="width: 100%;">Level Up</a>
+                        </div>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-header">
+                            <h3>Specialized Topics</h3>
+                        </div>
+                        <div class="service-body">
+                            <p>Focused lessons on specialized Python applications based on your interests and career goals.</p>
+                            <ul>
+                                <li>Data science with pandas & numpy</li>
+                                <li>Web development with Django/Flask</li>
+                                <li>Automation and scripting</li>
+                                <li>Machine learning fundamentals</li>
+                            </ul>
+                            <div class="price">$65 / hour</div>
+                            <a href="#contact" class="cta-button" style="width: 100%;">Specialize</a>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="teaching" class="section">
+                <h2>My Teaching Approach</h2>
+                <p>I believe the best way to learn programming is by doing. My lessons combine theoretical knowledge with practical, hands-on exercises that reinforce concepts and build real-world skills.</p>
+                
+                <div class="code-snippet">
+                    <div class="code-header">
+                        <span class="language-badge">Python</span>
+                        <span>Sample exercise from a beginner lesson</span>
+                    </div>
+                    <pre>
+def calculate_stats(numbers):
+    """
+    Calculate basic statistics for a list of numbers.
+    Returns min, max, sum, and average as a tuple.
+    
+    Example:
+        >>> calculate_stats([5, 2, 9, 1, 7])
+        (1, 9, 24, 4.8)
+    """
+    # Your solution here!
+    # Hint: Use built-in functions like min(), max(), sum()
+    pass
+
+# Test your function
+test_data = [5, 2, 9, 1, 7]
+result = calculate_stats(test_data)
+print(f"Min: {result[0]}, Max: {result[1]}")
+print(f"Sum: {result[2]}, Average: {result[3]}")
+                    </pre>
+                </div>
+                
+                <p>Each lesson is tailored to your learning style and includes:</p>
+                <ul style="list-style-type: disc; margin-left: 2rem;">
+                    <li>Concept explanation with real-world examples</li>
+                    <li>Live coding demonstrations</li>
+                    <li>Practical exercises you can complete during and after lessons</li>
+                    <li>Code reviews and feedback on your solutions</li>
+                    <li>Project-based learning for more advanced students</li>
+                </ul>
+            </section>
+            
+            <section id="testimonials" class="section">
+                <h2>What My Students Say</h2>
+                <div class="testimonials">
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            Boris completely transformed my understanding of Python. His industry experience brings a practical perspective that you just don't get from online courses or bootcamps. In just two months of weekly lessons, I was able to build a data analysis tool that impressed my manager!
+                        </div>
+                        <div class="testimonial-author">— Michael K., Data Analyst</div>
+                    </div>
+                    
+                    <div class="testimonial">
+                        <div class="testimonial-content">
+                            As someone transitioning into tech from a non-CS background, I was intimidated by programming. Boris broke down complex concepts into digestible pieces and was incredibly patient. His teaching style builds confidence while ensuring you truly understand the fundamentals.
+                        </div>
+                        <div class="testimonial-author">— Sarah L., Career Changer</div>
+                    </div>
+                </div>
+            </section>
+            
+            <section id="contact" class="section">
+                <h2>Book Your Lesson</h2>
+                <p>Ready to advance your Python skills? Fill out the form below, and I'll contact you to schedule a free 15-minute consultation to discuss your goals and how I can help you achieve them.</p>
+                
+                <form id="contactForm" class="contact-form">
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="experience">Python Experience Level</label>
+                        <select id="experience" class="form-control" required>
+                            <option value="">Select your experience level</option>
+                            <option value="beginner">Complete Beginner</option>
+                            <option value="intermediate">Some Experience</option>
+                            <option value="advanced">Experienced Developer</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="goals">Your Learning Goals</label>
+                        <textarea id="goals" class="form-control" placeholder="What do you hope to achieve with Python? Any specific projects or skills you want to learn?"></textarea>
+                    </div>
+                    
+                    <button type="submit" class="cta-button" style="border: none; cursor: pointer;">Send Request</button>
+                    
+                    <div id="successMessage" class="success-message">
+                        <p>Thank you for your interest! Your email client should open shortly. If it doesn't, please email me directly.</p>
+                    </div>
+                </form>
+            </section>
+        </div>
+    </main>
+    
+    <footer class="footer">
+        <div class="container">
+            <p>&copy; 2025 Boris Epshtein | Python Lessons</p>
+            <div class="social-links">
+                <a href="https://www.linkedin.com/in/epshtein/" class="social-link">LinkedIn</a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
